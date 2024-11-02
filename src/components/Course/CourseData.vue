@@ -15,7 +15,6 @@
             </div>
         </transition>
         <div class="p-6 bg-white rounded-md shadow-md">
-            <pre>{{ course.thumbnail }}</pre>
             <img :src="imageUrl(course.thumbnail)" :alt="course.title" class="w-full h-48 object-cover rounded mb-4" />
 
             <div v-if="course.title">
