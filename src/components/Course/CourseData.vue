@@ -15,7 +15,8 @@
             </div>
         </transition>
         <div class="p-6 bg-white rounded-md shadow-md">
-            <img :src="thumbnailUrl" :alt="course.title" class="w-full h-48 object-cover rounded mb-4" />
+            <pre>{{ course.thumbnail }}</pre>
+            <img :src="imageUrl(course.thumbnail)" :alt="course.title" class="w-full h-48 object-cover rounded mb-4" />
 
             <div v-if="course.title">
 
@@ -72,6 +73,7 @@ import { useRoute, useRouter } from 'vue-router';
 import apiClient from "../../api/axios.js";
 import DashboardHeader from "../DashboardHeader.vue";
 import Loader from "./Loader.vue";
+import {imageUrl} from "../../imageUtil.js";
 
 const route = useRoute();
 const router = useRouter();
@@ -86,7 +88,7 @@ const course = ref({
 
 
 const errorMessage = ref('');
-const baseUrl = import.meta.env.VITE_APP_URL || 'http://localhost:8000';
+const baseUrl = import.meta.env.VITE_APP_URL || 'https://course-server.sahet-dev.com';
 const thumbnailUrl = computed(() => `${baseUrl}/storage/${course.value.thumbnail}`);
 const notification = ref({
     message: '',
@@ -100,7 +102,7 @@ const fetchCourse = async () => {
     try {
         const response = await apiClient.get(`/courses/${courseId}`);
         course.value = response.data.course;
-console.log(course.value)
+        console.log(imageUrl(course.value.thumbnail))
     } catch (error) {
         errorMessage.value = 'Failed to load course data.';
     }

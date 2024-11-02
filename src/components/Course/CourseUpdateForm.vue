@@ -135,6 +135,7 @@ import {
 } from 'ckeditor5';
 import 'ckeditor5/ckeditor5.css';
 import Loader from "./Loader.vue";
+import {imageUrl} from "../../imageUtil.js";
 
 const editor = ClassicEditor;
 const editorConfig = {
@@ -193,7 +194,7 @@ const fetchLessons = async (courseId) => {
             id: lesson.id || null,
             title: lesson.title || '',
             video_url: lesson.video_url || '',
-            videoPreview: lesson.video_url ? `http://127.0.0.1:8000/storage/${lesson.video_url}` : null,
+            videoPreview: imageUrl(lesson.video_url) ,
             markdown_text: lesson.markdown_text || '',
         }));
         selectedLesson.value = lessonsData.length > 0 ? 0 : null;
